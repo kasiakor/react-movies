@@ -5,7 +5,8 @@ import MovieCard from "./MovieCard";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const API_URL = "https://www.omdbapi.com?apikey=";
+  const [searchTerm, setSearchTerm] = useState("");
+  const API_URL = "https://www.omdbapi.com?apikey=4c1cd9fc";
 
   const searchMovies = async (title) => {
     const res = await fetch(`${API_URL}&s=${title}`);
@@ -14,7 +15,7 @@ function App() {
   };
 
   useEffect(() => {
-    searchMovies("Braveheart");
+    searchMovies("Indiana Johnes");
   }, []);
 
   return (
@@ -24,10 +25,14 @@ function App() {
         <input
           type="text"
           placeholder="search for movies"
-          value="Braveheart"
-          onChange={() => {}}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <img src={SearchIcon} alt="search" onClick={() => {}} />
+        <img
+          src={SearchIcon}
+          alt="search"
+          onClick={() => searchMovies(searchTerm)}
+        />
       </div>
       {movies?.length > 0 ? (
         <div className="container">
